@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<?xml-stylesheet type='text/xsl' href='image_metadata_stylesheet.xsl'?>
+<dataset>
+<name>imglab dataset</name>
+<comment>Created by imglab tool.</comment>
+<images>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_1005_.jpg'>
+    <box top='4' left='145' width='125' height='122'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_1020_.jpg'>
+    <box top='2' left='150' width='120' height='126'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_105_.jpg'>
+    <box top='17' left='147' width='105' height='110'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_1065_.jpg'>
+    <box top='9' left='95' width='116' height='121'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_1125_.jpg'>
+    <box top='7' left='97' width='118' height='119'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_1200_.jpg'>
+    <box top='9' left='95' width='118' height='121'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_1215_.jpg'>
+    <box top='7' left='96' width='117' height='118'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_1245_.jpg'>
+    <box top='3' left='14' width='128' height='124'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_1305_.jpg'>
+    <box top='4' left='12' width='128' height='125'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_1320_.jpg'>
+    <box top='1' left='14' width='127' height='126'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_135_.jpg'>
+    <box top='22' left='209' width='98' height='108'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_165_.jpg'>
+    <box top='18' left='194' width='101' height='108'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_195_.jpg'>
+    <box top='20' left='185' width='105' height='108'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_240_.jpg'>
+    <box top='18' left='216' width='101' height='107'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_255_.jpg'>
+    <box top='18' left='336' width='103' height='106'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_300_.jpg'>
+    <box top='19' left='302' width='101' height='103'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_30_.jpg'>
+    <box top='7' left='60' width='119' height='126'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_345_.jpg'>
+    <box top='19' left='282' width='95' height='105'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_375_.jpg'>
+    <box top='21' left='253' width='88' height='102'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_390_.jpg'>
+    <box top='21' left='262' width='87' height='101'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_420_.jpg'>
+    <box top='25' left='173' width='83' height='95'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_450_.jpg'>
+    <box top='22' left='205' width='77' height='101'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_45_.jpg'>
+    <box top='7' left='65' width='116' height='120'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_495_.jpg'>
+    <box top='18' left='121' width='89' height='104'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_540_.jpg'>
+    <box top='32' left='161' width='92' height='98'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_570_.jpg'>
+    <box top='13' left='186' width='92' height='113'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_60_.jpg'>
+    <box top='18' left='198' width='101' height='113'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_630_.jpg'>
+    <box top='12' left='209' width='84' height='115'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_690_.jpg'>
+    <box top='9' left='346' width='86' height='118'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_720_.jpg'>
+    <box top='9' left='302' width='85' height='121'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_780_.jpg'>
+    <box top='10' left='270' width='91' height='115'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_90_.jpg'>
+    <box top='18' left='171' width='105' height='108'/>
+  </image>
+  <image file='/home/qthai/Code_ATri_SVM/CDS_R1_TSR/dataset_final/turn_right_ahead_ver2/image_945_.jpg'>
+    <box top='-1' left='201' width='114' height='128'/>
+  </image>
+</images>
+</dataset>
