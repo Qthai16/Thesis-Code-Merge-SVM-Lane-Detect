@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<?xml-stylesheet type='text/xsl' href='image_metadata_stylesheet.xsl'?>
+<dataset>
+<name>imglab dataset</name>
+<comment>Created by imglab tool.</comment>
+<images>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1065_.jpg'>
+    <box top='24' left='203' width='90' height='93'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1110_.jpg'>
+    <box top='23' left='203' width='89' height='93'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1140_.jpg'>
+    <box top='22' left='202' width='93' height='95'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1185_.jpg'>
+    <box top='23' left='202' width='92' height='92'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1200_.jpg'>
+    <box top='23' left='203' width='91' height='92'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1215_.jpg'>
+    <box top='22' left='202' width='91' height='92'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1275_.jpg'>
+    <box top='23' left='203' width='89' height='91'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1305_.jpg'>
+    <box top='23' left='203' width='89' height='94'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1320_.jpg'>
+    <box top='22' left='204' width='90' height='97'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1335_.jpg'>
+    <box top='23' left='202' width='90' height='94'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_135_.jpg'>
+    <box top='9' left='266' width='93' height='106'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_1410_.jpg'>
+    <box top='25' left='205' width='89' height='89'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_15_.jpg'>
+    <box top='1' left='445' width='121' height='119'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_180_.jpg'>
+    <box top='8' left='327' width='81' height='104'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_210_.jpg'>
+    <box top='8' left='401' width='80' height='102'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_240_.jpg'>
+    <box top='12' left='462' width='67' height='102'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_270_.jpg'>
+    <box top='4' left='436' width='87' height='108'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_315_.jpg'>
+    <box top='6' left='396' width='93' height='106'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_330_.jpg'>
+    <box top='11' left='329' width='94' height='103'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_360_.jpg'>
+    <box top='18' left='310' width='96' height='97'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_375_.jpg'>
+    <box top='17' left='313' width='94' height='99'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_435_.jpg'>
+    <box top='19' left='278' width='95' height='102'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_465_.jpg'>
+    <box top='21' left='305' width='87' height='95'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_510_.jpg'>
+    <box top='23' left='234' width='83' height='93'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_525_.jpg'>
+    <box top='20' left='230' width='79' height='89'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_570_.jpg'>
+    <box top='25' left='252' width='74' height='88'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_585_.jpg'>
+    <box top='22' left='255' width='72' height='89'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_615_.jpg'>
+    <box top='23' left='149' width='74' height='90'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_660_.jpg'>
+    <box top='21' left='113' width='65' height='91'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_750_.jpg'>
+    <box top='10' left='113' width='82' height='101'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_75_.jpg'>
+    <box top='5' left='326' width='103' height='112'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_780_.jpg'>
+    <box top='10' left='72' width='84' height='101'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_825_.jpg'>
+    <box top='8' left='104' width='97' height='104'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_900_.jpg'>
+    <box top='5' left='158' width='105' height='111'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_90_.jpg'>
+    <box top='7' left='253' width='99' height='106'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_930_.jpg'>
+    <box top='7' left='205' width='104' height='112'/>
+  </image>
+  <image file='/home/qthai/Downloads/Code_SVM_detect/dataset_final/stop/image_990_.jpg'>
+    <box top='25' left='204' width='91' height='88'/>
+  </image>
+</images>
+</dataset>

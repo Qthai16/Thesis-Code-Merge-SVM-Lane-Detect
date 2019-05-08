@@ -22,7 +22,7 @@ using namespace std;
 using namespace dlib;
 using namespace cv;
 
-#define SHOW_DETECT
+// #define SHOW_DETECT
 
 typedef scan_fhog_pyramid<pyramid_down<6> > image_scanner_type;
 // Get the upsample option from the user but use 0 if it wasn't given.
