@@ -1,0 +1,2 @@
+/usr/bin/ar qc libSignDetect.a  CMakeFiles/SignDetect.dir/svm_sign_detect/src/sign_detect.cpp.o
+/usr/bin/ranlib libSignDetect.a

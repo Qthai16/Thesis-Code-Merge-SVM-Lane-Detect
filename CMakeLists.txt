@@ -10,6 +10,19 @@ include(svm_sign_detect/dlib/cmake)
 set(CMAKE_BUILD_TYPE Release)
 set(DLIB_NO_GUI_SUPPORT OFF)
 
+MACRO(add_source name)
+    ADD_EXECUTABLE(${name} svm_sign_detect/src/${name}.cpp)
+    TARGET_LINK_LIBRARIES(${name} dlib )
+    TARGET_LINK_LIBRARIES(${name} ${OpenCV_LIBS} )
+ENDMACRO()
+
+# add_source(my_detect)
+
+SET(GCC_COVERAGE_COMPILE_FLAGS "-g")
+SET(GCC_COVERAGE_LINK_FLAGS    "-g")
+SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
+
+
 if(BUILD_ON_PI)
 	add_library(DetectLane src/pi_lane_detect.cpp)
 	add_library(Control src/control.cpp)
