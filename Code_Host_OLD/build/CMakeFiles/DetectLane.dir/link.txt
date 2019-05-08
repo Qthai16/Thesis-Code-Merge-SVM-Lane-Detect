@@ -1,2 +1,0 @@
-/usr/bin/ar qc libDetectLane.a  CMakeFiles/DetectLane.dir/src/pi_lane_detect.cpp.o
-/usr/bin/ranlib libDetectLane.a
