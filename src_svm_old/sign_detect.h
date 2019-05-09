@@ -12,6 +12,7 @@
 #include <dlib/opencv.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/opencv.hpp>
 
 #include <time.h>
 #include <iostream>
@@ -55,7 +56,7 @@ public:
 	// void Load_SVM_signs_detector(std::vector<TrafficSign> signs, std::vector<object_detector<image_scanner_type> > detectors);
 	// void sign_detect_update(const cv::Mat &src, std::vector<dlib::object_detector<image_scanner_type> > svm_sign_detectors, std::vector<TrafficSign> signs);
 	void Load_SVM_signs_detector(void);
-	void sign_detect_update(const cv::Mat &src);
+	void sign_detect_update(const cv::Mat &src, volatile bool &mat_lock);
 
 private:
 

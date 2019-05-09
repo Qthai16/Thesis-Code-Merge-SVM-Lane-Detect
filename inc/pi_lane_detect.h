@@ -16,7 +16,7 @@ using namespace std;
 using namespace cv;
 
 // #define CALIB
-#define SHOW_WINDOW
+// #define SHOW_WINDOW
 
 class DetectLane
 {
@@ -67,8 +67,11 @@ private:
     int minHSV[3] = {0, 0, 0};
     int maxHSV[3] = {255, 255, 180};
 
-    Scalar minHSV_lane = Scalar(50, 35, 118); //Nguong nay tam duoc
+    Scalar minHSV_lane = Scalar(50, 35, 118); //Nguong nay tam duoc (buoi sang)
     Scalar maxHSV_lane = Scalar(255, 255, 255);
+
+    // Scalar minHSV_lane = Scalar(50,80,110); // Nguong nay buoi toi
+    // Scalar maxHSV_lane = Scalar(255, 255, 255);
 
     // Scalar minHSV_lane = Scalar(0, 35, 100);
     // Scalar maxHSV_lane = Scalar(255, 255, 255);

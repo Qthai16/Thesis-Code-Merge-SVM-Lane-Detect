@@ -29,6 +29,7 @@ int8_t Control::pid_init(void)
     angle_small_ctrl_pid.Kd = 0.0;
     angle_small_ctrl_pid.Ts = 0.01;
     angle_small_ctrl_pid.PID_Saturation = 10;
+    return 1;
 }
 
 uint16_t Control::Convert_to_DutyCycles(float udk, float angle){
@@ -120,12 +121,13 @@ int8_t Control::pid_set_para(PID_PARAMETERS* pid_parameter,float Kp,float Ki, fl
 
 void Control::driverCar_ver2(const Point &center_left, const Point &center_right, const Point &center_lane, int flag)
 {
+    cv::Point null  = cv::Point(-1,-1);
     float cur_angle, udk;
     uint16_t duty = 75;
     // Scalar(x,y,z) : Blue Green Red
     if (flag == 2) // binh thuong
     {
-        if (center_left != DetectLane::null && center_right != DetectLane::null) // co ca 2 lane
+        if (center_left != null && center_right != null) // co ca 2 lane
         {
             // cur_angle = compute_angle_error( (center_left + center_right)/2 );
             cur_angle = compute_angle_error( center_lane);
@@ -137,7 +139,7 @@ void Control::driverCar_ver2(const Point &center_left, const Point &center_right
             }
         }
 
-        else if ((center_left != DetectLane::null) && (center_right == DetectLane::null) )// co lane trai
+        else if ((center_left != null) && (center_right == null) )// co lane trai
         {
             // cur_angle = compute_angle_error( Point(center_left.x + laneWidth/2, center_left.y) ); //offset nua khoang cach lane duong
             cur_angle = compute_angle_error(center_lane);
@@ -149,7 +151,7 @@ void Control::driverCar_ver2(const Point &center_left, const Point &center_right
             }
         }
 
-        else if ( (center_right != DetectLane::null) && (center_left == DetectLane::null) )// co lane phai
+        else if ( (center_right != null) && (center_left == null) )// co lane phai
         {
             // cur_angle = compute_angle_error( Point(center_right.x - laneWidth/2, center_right.y) );
             cur_angle = compute_angle_error(center_lane);
