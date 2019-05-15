@@ -1,8 +1,0 @@
-/home/qthai/Downloads/dlib/build/CMakeFiles/rebuild_cache.dir
-/home/qthai/Downloads/dlib/build/CMakeFiles/edit_cache.dir
-/home/qthai/Downloads/dlib/build/CMakeFiles/install.dir
-/home/qthai/Downloads/dlib/build/CMakeFiles/list_install_components.dir
-/home/qthai/Downloads/dlib/build/CMakeFiles/dlib.dir
-/home/qthai/Downloads/dlib/build/CMakeFiles/dlib_shared.dir
-/home/qthai/Downloads/dlib/build/CMakeFiles/install/local.dir
-/home/qthai/Downloads/dlib/build/CMakeFiles/install/strip.dir
