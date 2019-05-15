@@ -122,15 +122,15 @@ void DetectLane::update(const Mat &src)
 
 Mat DetectLane::preProcess(const Mat &src, Point &mass_road_BirdView)
 {
-    Point mass_road_src = null;
+    Point mass_road_tmp = null;
     Mat dilateElement = getStructuringElement( MORPH_RECT,Size(2*(2) + 1,2*(2) + 1));
     Mat imgsobel = sobelfilter(src);
-    mass_road_src = MassOfRoad(src); //chu y day la mass_road o trong anh goc
+    mass_road_tmp = MassOfRoad(src); //chu y day la mass_road o trong anh goc
 
-    Mat bev_img = birdViewTranform(imgsobel, mass_road_src); //chu y day la mass road trong anh BirdView
+    Mat bev_img = birdViewTranform(imgsobel, mass_road_tmp); //chu y day la mass road trong anh BirdView
     
-    mass_road_BirdView.x = mass_road_src.x;
-    mass_road_BirdView.y = mass_road_src.y;
+    mass_road_BirdView.x = mass_road_tmp.x;
+    mass_road_BirdView.y = mass_road_tmp.y;
     
     // fillLane(bev_img);
     vector<Vec4i> lines;
@@ -440,7 +440,7 @@ void DetectLane::detectLeftRight(const vector< vector<Point> > &points, Point &m
 {
 // Bird View: 320x240
     Mat test_left_rgt =  test_left_rgt.zeros(Size(240,320), CV_8UC3);
-    int ind_lane1 = 0, ind_lane2 = 0;
+    float ind_lane1 = 0.0, ind_lane2 = 0.0;
     //** Bien khoang cach khi nhan duoc 2 lane nhung thuc te co chi co 1 lane bi tach lam 2 **//
     int dy_defect_1, dy_defect_2, dy_min;
     int dx_defect_1, dx_defect_2, dx_min;
@@ -560,7 +560,7 @@ void DetectLane::detectLeftRight(const vector< vector<Point> > &points, Point &m
         {
             circle(test_left_rgt, lane1[i], 1, Scalar(0, 0, 255), 2, 8, 0); //mau do lane trai
             // putText(test_left_rgt, Utility().intToString(i), lane1[i], FONT_HERSHEY_SIMPLEX, 0.5, Scalar(255, 0, 0), 1);
-            ind_lane1++;
+            ind_lane1 = ind_lane1 + 1;
         }
     }
 
@@ -570,7 +570,7 @@ void DetectLane::detectLeftRight(const vector< vector<Point> > &points, Point &m
         {
             circle(test_left_rgt, lane2[i], 1, Scalar(255, 0, 0), 2, 8, 0); //mau xanh duong lane phai
             // putText(test_left_rgt, Utility().intToString(i), lane2[i], FONT_HERSHEY_SIMPLEX, 0.5, Scalar(255, 0, 0), 1);
-            ind_lane2++;
+            ind_lane2 = ind_lane2 + 1;
         }
     }
 //** Tinh toan de xap xi 2 lane => N diem trong lane1 va lane2 (2 vector<Points>) **//
@@ -597,35 +597,22 @@ void DetectLane::detectLeftRight(const vector< vector<Point> > &points, Point &m
     // if ( (lane2[0] != null) && (lane2[ind_lane2] != null) )
     //     line(test_left_rgt, lane2[0], lane2[ind_lane2], Scalar(27, 50, 255), 3, LINE_8);
 //** Xac dinh do lech khoang cach giua 2 lane **//
-    dy_defect_1 = abs(lane1[ind_lane1].y    - lane2[0].y);
-    dy_defect_2 = abs(lane1[0].y            - lane2[ind_lane2].y);
-    dx_defect_1 = abs(lane1[ind_lane1].x    - lane2[0].x);
-    dx_defect_2 = abs(lane1[0].x            - lane2[ind_lane2].x);
-    dy_min = (dy_defect_1 < dy_defect_2 ) ? dy_defect_1 : dy_defect_2;
-    dx_min = (dy_defect_1 < dy_defect_2 ) ? dx_defect_1 : dx_defect_2;
-    // dx_min = (dx_defect_1 < dx_defect_2 ) ? dx_defect_1 : dx_defect_2;
+	if ( ((int) ind_lane1 != 0) && ( (int)ind_lane2 != 0 ) )
+	{
+		dy_defect_1 = abs(lane1[(int)ind_lane1].y    - lane2[0].y);
+		dy_defect_2 = abs(lane1[0].y            - lane2[(int)ind_lane2].y);
+		// dx_defect_1 = abs(lane1[ind_lane1].x    - lane2[0].x);
+		// dx_defect_2 = abs(lane1[0].x            - lane2[ind_lane2].x);
+		dy_min = (dy_defect_1 < dy_defect_2 ) ? dy_defect_1 : dy_defect_2;
+		if (dy_min == dy_defect_1)
+			dx_min = abs(lane1[(int)ind_lane1].x    - lane2[0].x);
+		else 
+			dx_min = abs(lane1[0].x            - lane2[(int)ind_lane2].x);
+		// dx_min = (dy_defect_1 < dy_defect_2 ) ? dx_defect_1 : dx_defect_2;
+		// dx_min = (dx_defect_1 < dx_defect_2 ) ? dx_defect_1 : dx_defect_2;
+	}
+
 //** Xac dinh goc lech cua duong thang xap xi 2 lane **//
-/**
-// Can sua lai code
-    float angle_1 = atan2(lane1[0].y - lane1[ind_lane1].y, lane1[0].x - lane1[ind_lane1].x)*(180/CV_PI);
-    float angle_2 = atan2(lane2[0].y - lane2[ind_lane2].y, lane2[0].x - lane2[ind_lane2].x)*(180/CV_PI);
-    // cout << angle_1 << ", " << angle_2 << endl; //", dy_min: " << dy_min << endl;
-    float d_angle_1 = abs(angle_1) - 90.0;
-    float d_angle_2 = abs(angle_2) - 90.0;
-    float angle2Compare = ( abs(d_angle_1) > abs(d_angle_2) ) ? angle_1 : angle_2; //Lay goc lech nhieu so voi phuong thang dung hon
-    if (angle2Compare < lft_deviant_ang) //Lech trai
-    {
-        lft_rgt_flag = -1;
-        // cout << ", re trai";
-    }
-    else if (angle2Compare > rgt_deviant_ang){//lech phai
-        lft_rgt_flag = 1;
-        // cout << ", re phai";
-    }
-    else {
-        lft_rgt_flag = 0;
-    }
-**/
 
 #ifdef SHOW_WINDOW
     imshow("test_left_rgt", test_left_rgt);
@@ -764,9 +751,9 @@ void DetectLane::detectLeftRight(const vector< vector<Point> > &points, Point &m
         // else if (dist_1 > dist_2)
         //     center_lft_lane = (lane1[ind_lane1] + lane2[0])/2;
 
-        if (ind_lane1 > ind_lane2)
+        if ((int) ind_lane1 > (int) ind_lane2)
             center_lft_lane = center_lane1;
-        else if (ind_lane1 <= ind_lane2)
+        else if ((int) ind_lane1 <= (int) ind_lane2)
             center_lft_lane = center_lane2;
 
         center_road_lane = Point( center_lft_lane.x + half_laneWidth, center_lft_lane.y );
@@ -787,9 +774,9 @@ void DetectLane::detectLeftRight(const vector< vector<Point> > &points, Point &m
         // else if (dist_1 > dist_2)
         //     center_rgt_lane = (lane1[ind_lane1] + lane2[0])/2;
 
-        if (ind_lane1 > ind_lane2)
+        if ((int)ind_lane1 > (int)ind_lane2)
             center_rgt_lane = center_lane1;
-        else if (ind_lane1 <= ind_lane2)
+        else if ((int)ind_lane1 <= (int)ind_lane2)
             center_rgt_lane = center_lane2;
 
         center_road_lane = Point( center_rgt_lane.x - half_laneWidth, center_rgt_lane.y );
@@ -864,6 +851,8 @@ int16_t DetectLane::Detect_one_lane( vector<Point> &lanex, Point &mass_road, dou
     else if ( (ang_1 > -70) ){ //mat lane phai, lane con lai la lane trai
         return LEFT_LANE;
     }
+    else
+		return 0;
 }
 
 int16_t DetectLane::Lost_lane(const vector<Point> &points) //neu tra ve -1 tuc la mat lane, neu tra ve 0 tuc la co lane

@@ -42,18 +42,12 @@ public:
     SignDetect();
     ~SignDetect();
 
-	// static string left_sign_path  = "../svm_detectors/turn_left_ver1.svm"; 
-	// static string right_sign_path = "../svm_detectors/turn_right_ver2.svm";
-	// static string stop_sign_path = "../svm_detectors/stop_ver1.svm";
-
 	static std::vector<TrafficSign> signs_data;
 	static std::vector<dlib::object_detector<image_scanner_type> > detectors_data;
 	// static cv::Rect draw_box;
     // static std::vector <dlib::rect_detection> rects;
 	static std::vector<int16_t> detect_index; //Nhan biet toi da 3 bien bao
-
-	// void Load_SVM_signs_detector(std::vector<TrafficSign> signs, std::vector<object_detector<image_scanner_type> > detectors);
-	// void sign_detect_update(const cv::Mat &src, std::vector<dlib::object_detector<image_scanner_type> > svm_sign_detectors, std::vector<TrafficSign> signs);
+	
 	void Load_SVM_signs_detector(void);
 	void sign_detect_update(const cv::Mat &src);
 

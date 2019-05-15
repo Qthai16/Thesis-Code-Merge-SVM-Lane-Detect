@@ -16,7 +16,7 @@ using namespace std;
 using namespace cv;
 
 // #define CALIB
-#define SHOW_WINDOW
+// #define SHOW_WINDOW
 
 class DetectLane
 {

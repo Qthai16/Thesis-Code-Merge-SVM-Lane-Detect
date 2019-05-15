@@ -29,6 +29,7 @@ int8_t Control::pid_init(void)
     angle_small_ctrl_pid.Kd = 0.0;
     angle_small_ctrl_pid.Ts = 0.01;
     angle_small_ctrl_pid.PID_Saturation = 10;
+    return 1;
 }
 
 uint16_t Control::Convert_to_DutyCycles(float udk, float angle){

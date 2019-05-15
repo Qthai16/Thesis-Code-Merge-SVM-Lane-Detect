@@ -12,7 +12,7 @@
 #include "../inc/utility.h"
 #include "../svm_sign_detect/src/sign_detect.h"
 
-#include "../inc/raspi_uart.h"
+// #include "../inc/jetson_uart.h"
 
 #include <pthread.h>
 
@@ -25,21 +25,22 @@ using namespace dlib;
 
 #define FRAME_WIDTH     320
 #define FRAME_HEIGHT    240
-#define VID_SRC 0
+// #define FRAME_WIDTH     640
+// #define FRAME_HEIGHT    480
+#define VID_SRC 1
 
-#define SEND_DATA
+// #define SEND_DATA
 // #define RECV_DATA
 
 DetectLane *lane_detect;
 Control *car_control;
-SignDetect *sign_detect;
-PI_UART *uart;
+// SignDetect *sign_detect;
+// JS_UART *js_uart;
 
 Mat src;
-Mat src_cp;
 
 const string Video_Path_Host = "/home/qthai/Downloads/Code_sua_xiu_full_dg_20_4/Vid_full_duong_bug_khuc_cua.avi";
-const string Video_Path_Pi = "/home/pi/Code_new/Video_Record/Vid_no_SVM_2.avi";
+const string Video_Path_Pi = "/home/jetson/Code_Thai/vid/Vid_right_ver3.avi";
 
 uint8_t u8_Buf[100];
 uint16_t u16_data_send[2];
@@ -54,23 +55,30 @@ Scalar maxHSV_lft_rgt_sign = Scalar(132, 255, 255);
 Scalar minHSV_stop_sign = Scalar(0,136,177);
 Scalar maxHSV_stop_sign = Scalar(255,255,255);
 
-int16_t found_sign_main = 0;
+int16_t volatile found_sign_main = 0;
 // int16_t* p_found_sign_main = &found_sign_main;
 Mat sign_crop;
 
-int16_t *param = (int16_t *)malloc(sizeof(int16_t));
 // int16_t *param = &found_sign_main;
 // *param = 0;
 
-cv::Mat pre_process_svm(const cv::Mat &src, int16_t* p_found_sign);
+bool volatile mat_lock = false;
 
-cv::Mat pre_process_svm(const cv::Mat &src, int16_t* p_found_sign)
+cv::Mat pre_process_svm(const cv::Mat &src);
+
+cv::Mat pre_process_svm(const cv::Mat &src)
 {
     Mat gray, src_hsv;
     Mat src_inrange_lft_rgt, src_inrange_stop;
     Mat src_crop;
-    Mat src_tmp = src.clone();
-    cvtColor(src_tmp, src_hsv, COLOR_BGR2HSV);
+
+    Mat src_nothing = Mat::zeros(Size(50,50), CV_8UC3);
+    Rect roi;
+    int x_rect=0, y_rect=0, width_r=0, height_r=0;
+    cv::Point tl_rect = Point(-1, -1);
+    cv::Point br_rect = Point(-1, -1);
+
+    cvtColor(src, src_hsv, COLOR_BGR2HSV);
 
     // inRange(src_hsv, Scalar(minHSV[0], minHSV[1], minHSV[2]) , Scalar(maxHSV[0], maxHSV[1], maxHSV[2]), src_inrange);
     inRange(src_hsv, minHSV_lft_rgt_sign , maxHSV_lft_rgt_sign, src_inrange_lft_rgt);
@@ -91,7 +99,7 @@ cv::Mat pre_process_svm(const cv::Mat &src, int16_t* p_found_sign)
         int area = contourArea(contours.at(i));
         // drawContours(drawing, contours, i, 255, 2, 8, hierarchy, 0, Point());
 
-        if (area > 300) //loai bo contour nhieu
+        if (area > 200) //loai bo contour nhieu
             boundRect[i] = boundingRect( Mat(contours[i]) );
 
         float tmp_rect_area = (boundRect[i].width)*(boundRect[i].height);
@@ -101,60 +109,80 @@ cv::Mat pre_process_svm(const cv::Mat &src, int16_t* p_found_sign)
                 max_rect_ind = i;
             }
         }
-        // cv::rectangle( src_tmp, boundRect[i].tl(), boundRect[i].br(), Scalar(255,0,0), 2, 8, 0 );
+        // cv::rectangle( src, boundRect[i].tl(), boundRect[i].br(), Scalar(255,0,0), 2, 8, 0 );
     }
-    // cv::rectangle(src_tmp, boundRect[max_rect_ind].tl(), boundRect[max_rect_ind].br(), Scalar(0,0,255), 4, 8, 0 );
+    // cv::rectangle(src, boundRect[max_rect_ind].tl(), boundRect[max_rect_ind].br(), Scalar(0,0,255), 4, 8, 0 );
 
-    if ( boundRect.size() > 0)
-        src_crop = src_tmp(boundRect[max_rect_ind]); //crop vung co bien bao
-    Mat src_nothing = Mat::zeros(Size(50,50), CV_8UC3);
+    if (boundRect.size() > 0)
+    {
+        tl_rect = boundRect[max_rect_ind].tl();
+        br_rect = boundRect[max_rect_ind].br();
+        width_r  = br_rect.x - tl_rect.x + 10;
+        height_r = br_rect.y - tl_rect.y + 10;
+
+        x_rect = tl_rect.x - 10;
+        y_rect = tl_rect.y - 10;
+        // width_r = width_r + 20;
+        // height_r = height_r + 20;
+
+        if (y_rect < 0)
+            y_rect = 0;
+        if (width_r > 320)
+            width_r = 320;
+        if (height_r > 240)
+            height_r = 240;
+        roi = Rect(x_rect, y_rect,  width_r, height_r);
+    }
+
+	// Rect r = Rect(boundRect[max_rect_ind].width,  boundRect[max_rect_ind].height);
+    // if ( boundRect.size() > 0){
+        // src_crop = src(boundRect[max_rect_ind]).clone(); //crop vung co bien bao
+        // if(roi.x >= 0 && roi.y >= 0 && roi.width + roi.x < FRAME_HEIGHT && roi.height + roi.y < FRAME_WIDTH)
+
+    // }
+    if(roi.x >= 0 && roi.y >= 0 && roi.width + roi.x < FRAME_HEIGHT && roi.height + roi.y < FRAME_WIDTH)
+    {
+        // while (mat_lock);
+        // mat_lock = true;
+        src_crop = src(roi).clone();
+        // mat_lock = false;
+    }
     if ( (src_crop.rows > 0) && (src_crop.cols > 0) ){
-        *p_found_sign = 1;
-    	return src_crop;
+        // src_crop = src(roi).clone();
+        found_sign_main = 1;
+        return src(roi);
     }
     else{
-        *p_found_sign = 0;
+        found_sign_main = 0;
     	return src_nothing;
     }
-
-    /**if ( (src_crop.rows > 0) && (src_crop.cols > 0) ) //tim duoc nguong hsv voi contour lon nhat
-        {
-            imshow("sign crop", src_crop);
-            sign_detect->sign_detect_update(src_crop);
-
-            for (int i=0;i<(sign_detect->detect_index).size() ;i++)
-            {
-                if ( (sign_detect->detect_index)[i] == 1)//turn right ahead sign
-                {
-                    std::cout << "right" << endl;
-                }
-                else if ( (sign_detect->detect_index)[i] == -1)//turn left ahead sign
-                {
-                    std::cout << "left" << endl;
-                }
-                else if ( (sign_detect->detect_index)[i] == 0)//stop sign
-                {
-                    std::cout << "stop" << endl;
-                }
-            }
-        }
-    **/
 }
+
+int cnt = 0;
 
 void* get_blah_blah(void* arg )
 {
+    SignDetect *sign_detect;
     sign_detect = new SignDetect();
-    int16_t *p_found_flg = (int16_t *)arg;
-
+    // int16_t *p_found_flg = (int16_t *)arg;
+    sign_detect->Load_SVM_signs_detector();
     while(1)
     {
-        *p_found_flg = *param;
+        // int16_t p_found_flg = *((int16_t *)arg);
+
+        // cout << "OK" << endl;
         // cout << *p_found_flg << endl;
-        if (*p_found_flg == 1)
+        if ( found_sign_main == 1)
         {
-            // cout << "OK" << endl;
-            // sign_detect->sign_detect_update(crop_img);
+            while(mat_lock);
+            mat_lock = true;
             sign_detect->sign_detect_update(sign_crop);
+            mat_lock = false;
+
+            if((sign_detect->detect_index).size() == 0){
+                cout << "Not found" << endl;
+            }
+
             for (int i=0;i<(sign_detect->detect_index).size() ;i++)
             {
                 if ( (sign_detect->detect_index)[i] == 1)//turn right ahead sign
@@ -170,6 +198,9 @@ void* get_blah_blah(void* arg )
                     cout << "stop" << endl;
                 }
             }
+
+            // cout << "OK 1" <<endl;
+            
         }
         
         
@@ -194,7 +225,7 @@ int main(int argc, char **argv)
     lane_detect = new DetectLane();
     car_control = new Control();
     // sign_detect = new SignDetect();
-    uart = new PI_UART();
+    // js_uart = new JS_UART();
 	if( !capture.isOpened() )
         throw "Error when reading steam_avi";
         
@@ -210,25 +241,26 @@ int main(int argc, char **argv)
 #endif
 
     car_control->pid_init();
-    sign_detect->Load_SVM_signs_detector();
+    // sign_detect->Load_SVM_signs_detector();
 
     // capture >> src;
     // src_cp = src.clone();
     // int16_t *param = (int16_t *)malloc(sizeof(int16_t));
     // *param = *p_found_sign_main;
-    param = &found_sign_main;
-    sign_crop = Mat::zeros(Size(50,50), CV_8UC3);
-    found_sign_main = 0;
-    void *retval = malloc(sizeof(int));
-    // pthread_t thread;
-    // int rc;
-	// rc = pthread_create(&thread, NULL, get_blah_blah , param);
-    // cout << "Sign Detection Thread Created" << endl;
 
-    // if (rc) {
-    //     cout << "Error:unable to create thread," << rc << endl;
-    //     exit(-1);
-    // }
+    sign_crop = Mat::zeros(Size(50,50), CV_8UC3);
+    // void *retval = malloc(sizeof(int));
+	pthread_t thread;
+	int rc;
+	rc = pthread_create(&thread, NULL, get_blah_blah , NULL);
+	cout << "Sign Detection Thread Created" << endl;
+
+    if (rc) {
+        cout << "Error:unable to create thread," << rc << endl;
+        exit(-1);
+    }
+    
+    // int ret_serial = js_uart->jetson_uart_init();
 
     while (true)
     {
@@ -243,20 +275,19 @@ int main(int argc, char **argv)
 
         // while(mat_lock);
         // mat_lock = true;
-        src_cp = src.clone();
+        // src_cp = src.clone();
         // mat_lock = false;
 
-        sign_crop = pre_process_svm(src_cp, &found_sign_main);
-        // if (found_sign_main == true)
+        sign_crop = pre_process_svm(src);
         imshow("crop sign", sign_crop);
         // cout << "found_sign_main " << found_sign_main << endl;
         
 #ifdef SAVE_VID
-        video.write(src_cp);
+        video.write(src);
 #endif
 //** Image Processing Start Here **//
         lane_detect->Trackbar_Window();
-        lane_detect->update(src_cp);
+        lane_detect->update(src);
 //** Image Processing End Here  **//
 
 //** Control Start Here         **//
@@ -267,7 +298,8 @@ int main(int argc, char **argv)
 
 #ifdef SEND_DATA
         sprintf((char*)(u8_Buf), "[%d,%d]", u16_data_send[0], u16_data_send[1]);
-        uart->uart_string_send(u8_Buf);
+        ssize_t ret_write = write(ret_serial, (char*)(u8_Buf), 8); //chi gui 8 byte
+        // uart->uart_string_send(u8_Buf);
 #endif
 
 #ifdef RECV_DATA
@@ -291,7 +323,7 @@ int main(int argc, char **argv)
 
 
 #ifdef _DEBUG_
-        cv::imshow("View", src_cp);
+        cv::imshow("View", src);
 
         char key = cv::waitKey(1)&0xFF;
         if(key == 'p')
@@ -300,6 +332,9 @@ int main(int argc, char **argv)
             break;
 #endif
     }
+    
+    // clean_and_exit(0);
+    
     capture.release();
 	cv::destroyAllWindows();
 	return 0;
